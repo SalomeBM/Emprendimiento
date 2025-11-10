@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstructIA | Marketplace de Materiales Sostenibles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f7f7f7;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .green-dark {
+            color: #1a5a2c; /* Color oscuro del logo */
+        }
+        .green-light-bg {
+            background-color: #e6f3e6; /* Fondo verde claro suave */
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #1a5a2c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #2c7d42;
+        }
+
+        /* 1. Header (Barra de Navegación) */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img {
+            height: 90px; /* Ajustar altura del logo */
+            vertical-align: middle;
+        }
+        nav {
+            display: flex; /* Para alinear los elementos del nav incluyendo el carrito */
+            align-items: center;
+        }
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .cart-icon { /* Estilo para el icono del carrito */
+            position: relative;
+            margin-left: 20px;
+            font-size: 1.5em;
+            color: #1a5a2c;
+        }
+        .cart-count { /* Para el número de productos en el carrito */
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: #e63946; /* Rojo para notificaciones */
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+
+        /* 2. Hero/Banner Principal (Buscador) */
+        #hero {
+            padding: 80px 0;
+            background-color: #f7f7f7;
+        }
+        #hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        #hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .search-bar {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .search-bar input {
+            border: none;
+            flex-grow: 1;
+            padding: 5px;
+            font-size: 1em;
+            outline: none;
+        }
+
+        /* 3. ¿Quiénes Somos? */
+        #quienes-somos {
+            padding: 60px 0;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+        .quienes-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            text-align: left;
+        }
+        .quienes-text {
+            flex: 2;
+        }
+        .quienes-image {
+            flex: 1;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .quienes-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            min-height: 200px;
+        }
+        #quienes-somos h2 {
+            margin-top: 0;
+            font-size: 2em;
+        }
+        #quienes-somos p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        /* 4. Categorías Destacadas (Marketplace Look) */
+        #categories {
+            padding: 60px 0;
+            text-align: center;
+        }
+        #categories h2 {
+            margin-bottom: 40px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        .category-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s;
+        }
+        .category-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .category-item h3 {
+            font-size: 1.1em;
+            margin: 10px 0 0;
+        }
+        .category-icon {
+            font-size: 3em;
+            color: #2c7d42;
+        }
+
+        /* 5. NUEVA SECCIÓN: Resumen del Carrito */
+        #carrito-resumen {
+            padding: 40px 0;
+            background-color: #f0f8f0; /* Un verde muy claro */
+            border-top: 1px solid #c8e6c9;
+            text-align: center;
+        }
+        .carrito-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Para que los items se envuelvan en pantallas pequeñas */
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .carrito-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 180px; /* Ancho fijo para el item */
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .carrito-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .carrito-item h4 {
+            margin: 0 0 5px 0;
+            font-size: 1em;
+        }
+        .carrito-item p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .carrito-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+
+        /* 6. Propuesta de Valor (El por qué de ConstructIA) */
+        #value-prop {
+            padding: 60px 0;
+        }
+        .value-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .value-icon {
+            font-size: 2em;
+            color: #1a5a2c;
+            margin-right: 15px;
+        }
+        .value-text h3 {
+            margin: 0 0 5px 0;
+        }
+
+        /* 7. CTA (Llamada a la Acción) */
+        #cta {
+            padding: 50px 0;
+            text-align: center;
+        }
+        #cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        /* 8. Footer */
+        footer {
+            background-color: #1a5a2c;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+        }
+        
+        /* Media Query Básico para Responsive */
+        @media (max-width: 768px) {
+            .quienes-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .quienes-image {
+                width: 100%;
+                margin-top: 20px;
+            }
+            .nav-content {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav {
+                margin-top: 15px;
+            }
+            nav a, .cart-icon {
+                margin: 0 10px;
+            }
+            .search-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .search-bar input {
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .search-bar .button {
+                width: 100%;
+            }
+            .carrito-items {
+                flex-direction: column;
+                align-items: center;
+            }
+            .carrito-item {
+                width: 90%; /* Más ancho en móviles */
+            }
+            .carrito-actions {
+                flex-direction: column;
+            }
+            .carrito-actions .button {
+                width: 80%;
+                margin: 5px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">
+                <img src="ConstructIAlogo.jpg" alt="Logo de ConstructIA">
+            </div>
+            <nav>
+                <a href="#quienes-somos">Quiénes Somos</a>
+                <a href="#categories">Materiales</a>
+                <a href="#value-prop">Beneficios</a>
+                <a href="#" class="button">Acceder</a>
+                <a href="#carrito-resumen" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">3</span> </a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="text-center">
+        <div class="container">
+            <h1 class="green-dark">Digitalizamos la Construcción Sostenible en Medellín.</h1>
+            <p>Encuentra, compara y cotiza materiales eco-amigables de manera ágil y transparente.</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Ej: Ladrillo térmico, Cemento bajo en carbono...">
+                <a href="#" class="button">Buscar</a>
+            </div>
+            
+            <p>Dirigido a constructoras, arquitectos e ingenieros visionarios.</p>
+        </div>
+    </section>
+
+    <section id="quienes-somos">
+        <div class="container quienes-content">
+            <div class="quienes-text">
+                <h2 class="green-dark">🌱 ¿Quiénes Somos?</h2>
+                <p>Somos ConstructIA, la plataforma nacida en Medellín con la misión de impulsar la transformación digital y sostenible del sector de la construcción.</p>
+                <p>Combinamos la tecnología de un marketplace con Inteligencia Artificial para centralizar la información, eliminar las brechas de precios y ofrecer materiales certificados que cumplen con las más altas normativas ambientales.</p>
+                <p>Nuestra visión es simple: hacer que construir de manera eficiente y responsable sea la norma, no la excepción.</p>
+                <a href="#value-prop" class="button">Conoce nuestra Misión</a>
+            </div>
+            <div class="quienes-image">
+                <img src="quienesomos.png" alt="Medellín con edificios sostenibles y tecnología">
+            </div>
+        </div>
+    </section>
+
+    <section id="categories">
+        <div class="container">
+            <h2 class="green-dark">Explora nuestro Catálogo de Materiales Certificados</h2>
+            <div class="category-grid">
+                
+                <a href="#" class="category-item">
+                    <span class="category-icon">🧱</span>
+                    <h3>Estructura</h3>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">🌿</span>
+                    <h3>Acabados Verdes</h3>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">⚡</span>
+                    <h3>Energía Eficiente</h3>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">💧</span>
+                    <h3>Gestión de Agua</h3>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+    
+    <section id="carrito-resumen">
+        <div class="container">
+            <h2 class="green-dark">🛒 Tus Materiales Seleccionados</h2>
+            <p>Aquí tienes un resumen de los productos que te interesan. ¡Listo para cotizar tu proyecto!</p>
+            <div class="carrito-items">
+                <div class="carrito-item">
+                    <img src="ladrillo.png" alt="Ladrillo Ecológico">
+                    <h4>Ladrillo Ecológico</h4>
+                    <p>300 unidades</p>
+                </div>
+                <div class="carrito-item">
+                    <img src="pintura.png" alt="Pintura Ecológica">
+                    <h4>Pintura sin VOC</h4>
+                    <p>20 galones</p>
+                </div>
+                <div class="carrito-item">
+                    <img src="panelsolar.png" alt="Panel Solar">
+                    <h4>Panel Solar Eficiente</h4>
+                    <p>5 unidades</p>
+                </div>
+            </div>
+            <div class="carrito-actions">
+                <a href="#" class="button">Ver Mi Carrito Completo</a>
+                <a href="#" class="button" style="background-color: #79c762;">Continuar a Cotización</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="value-prop" class="green-light-bg">
+        <div class="container">
+            <h2 class="text-center green-dark">¿Por qué ConstructIA? Tu Aliado Sostenible</h2>
+            <div class="category-grid">
+                <div class="value-item">
+                    <span class="value-icon">⏱️</span>
+                    <div class="value-text">
+                        <h3>Optimización de Tiempos</h3>
+                        <p>Cotiza al instante y reduce las ineficiencias de la cadena de suministro tradicional.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">💰</span>
+                    <div class="value-text">
+                        <h3>Transparencia de Costos</h3>
+                        <p>Accede a información de precios actualizada y sin brechas, evitando sobrecostos.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🧠</span>
+                    <div class="value-text">
+                        <h3>Asesoría Inteligente (IA)</h3>
+                        <p>Recibe recomendaciones personalizadas basadas en el desempeño y normativas.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">✅</span>
+                    <div class="value-text">
+                        <h3>Cumplimiento Ambiental</h3>
+                        <p>Garantía de materiales certificados que cumplen con los requisitos de sostenibilidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" style="background-color: #2c7d42;">
+        <div class="container">
+            <h2>Empieza hoy tu proyecto con responsabilidad y eficiencia.</h2>
+            <a href="#" class="button" style="background-color: #79c762;">Registrarme Ahora</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ConstructIA. Marketplace de Construcción Sostenible para Medellín.</p>
+            <p>Términos y Condiciones | Contacto</p>
+        </div>
+    </footer>
+
+</body>
+</html>
